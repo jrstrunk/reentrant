@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Test, console2} from "forge-std/Test.sol";
 import {BankSimple} from "../src/BankSimple.sol";
+import {BankSimpleAttack} from "../src/BankSimpleAttack.sol";
 
 contract BankSimpleTest is Test {
     BankSimple public bank;
@@ -19,4 +20,15 @@ contract BankSimpleTest is Test {
     //     counter.setNumber(x);
     //     assertEq(counter.number(), x);
     // }
+}
+
+contract BankSimpleAttackTest is Test {
+    BankSimple public bank;
+    BankSimpleAttachk public bankAttack;
+
+    function setUp() public {
+        bank = new BankSimple();
+        bankAttack = new BankSimpleAttack();
+    }
+
 }
