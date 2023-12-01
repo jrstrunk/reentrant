@@ -5,9 +5,10 @@ contract BankSimple {
     mapping(address => uint256) public balances;
 
     error UnableToWithdrawal();
+    error InsufficientBalance();
 
     function deposit() public payable {
-        balances[msg.sender] += msg.value;    
+        balances[msg.sender] += msg.value;
     }
 
     function getBalance() public view returns (uint256) {
@@ -16,6 +17,9 @@ contract BankSimple {
 
     function withdrawal() public {
         uint256 amount = balances[msg.sender];
+        if (amount == 0) {
+            revert InsufficientBalance();
+        }
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         if (!success) {
             revert UnableToWithdrawal();
